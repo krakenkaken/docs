@@ -18,13 +18,13 @@
     {
       "group": "Docs",
       "pages": [
-        "docs/name",
+        "docs/name"
       ]
     },
     {
       "group": "Intro",
       "pages": [
-        "intro/name2",
+        "intro/name2"
       ]
     },
   ],
