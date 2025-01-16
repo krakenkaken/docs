@@ -1,0 +1,49 @@
+---
+title: "Развернуть портал документации"
+---
+
+Поддерживается развёртывание на собственном сервере в Docker от версии 20.10.
+
+1. Скачайте готовый файл командой `curl -LO `[`https://gram.ax/docker-compose.yaml`](https://gram.ax/docker-compose.yaml).
+
+```yaml docker-compose.yaml
+services:
+  gramax:
+    image: docker.io/gramax/gramax:latest
+    container_name: gramax
+    restart: unless-stopped
+    ports:
+      - ${PORT:-80}:${PORT:-80}
+    environment:
+      - PORT=${PORT:-80}
+      - ADMIN_LOGIN=${ADMIN_LOGIN:-admin}
+      - ADMIN_PASSWORD=${ADMIN_PASSWORD:-password}
+      - AUTO_PULL_TOKEN=${AUTO_PULL_TOKEN:-}
+      - AUTO_PULL_INTERVAL=${AUTO_PULL_INTERVAL:-}
+    volumes:
+      - ${ROOT_PATH:-./gramax}:/app/data
+```
+
+1. Задайте переменные среды:
+
+   1. `ROOT_PATH` — путь до папки, в которую будут склонированы каталоги. Если не указан, создается папка с названием `gramax`.
+
+   2. `ADMIN_LOGIN` — логин администратора. Если не указан, используется `admin`.
+
+   3. `ADMIN_PASSWORD` — пароль администратора. Если не указан, используется `password`.
+
+   4. `PORT` — порт приложения. Если не указан, используется 80.
+
+   5. `AUTO_PULL_TOKEN` — токен для автоматической синхронизации. Если не указан, каталоги не будут автоматически обновляться.
+
+   6. `AUTO_PULL_INTERVAL` — интервал автоматической синхронизации. Указывается в секундах. Если не указан, каталоги будут обновляться с интервалом 3 минуты.
+
+   7. `COOKIE_SECRET` — ключ для шифрования секретов пользователя в куках. Если не указан, используется `.`, рекомендуется заменить его на 32-байтный ключ (можно сгенерировать, используя `openssl rand -hex 32`).
+
+## Команды управления[](https://gram.ax/resources/docs/quick-start/own-server#%D0%BA%D0%BE%D0%BC%D0%B0%D0%BD%D0%B4%D1%8B-%D1%83%D0%BF%D1%80%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D1%8F)
+
+* Для запуска выполните команду `docker compose up`.
+
+* Чтобы остановить контейнеры, используйте `docker compose down`.
+
+* Для обновления остановите контейнеры и выполните `docker compose pull && docker compose up`.

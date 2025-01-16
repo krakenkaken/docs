@@ -17,9 +17,13 @@
   },
   "navigation": [
     {
-      "group": "Docs",
+      "group": "Быстрый старт",
       "pages": [
-        "docs/name"
+        "quick-start/name",
+        "quick-start/create-catalog",
+        "quick-start/publish-repository",
+        "quick-start/own-server",
+        "quick-start/add-catalog-to-docportal"
       ]
     },
     {
